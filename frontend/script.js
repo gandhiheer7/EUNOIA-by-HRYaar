@@ -159,93 +159,100 @@ document.addEventListener("DOMContentLoaded", () => {
       const imgWidth = 210, imgHeight = 34.5;
       doc.addImage(headerImgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
-      // --- Title ---
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(16);
-      doc.setTextColor(22, 53, 77);
-      doc.text("EUNOIA", 105, 50, { align: 'center' });
-      doc.setFontSize(12);
-      doc.text(`Prepared for: ${formData.company}`, 105, 57, { align: 'center' });
-
-      // --- Client Details ---
-      doc.setFont("helvetica", "bold");
-      doc.setFontSize(14);
-      doc.setTextColor(22, 53, 77);
-      doc.text("Client Details", 20, 75);
+      // --- Title Section ---
       doc.setFont("helvetica", "normal");
-      doc.setFontSize(11);
+      doc.setFontSize(16);
       doc.setTextColor(0, 0, 0);
-      doc.text("To,", 20, 83);
-      doc.text(`${formData.name}`, 20, 89);
-      doc.text(`${formData.designation}`, 20, 95);
-      doc.text(`${formData.company}`, 20, 101);
-      doc.text(`${formData.contact}`, 20, 107);
+      doc.text("EUNOIA", 105, 50, { align: 'center' });
+
+      doc.setFontSize(12);
+      doc.text("By HR Yaar", 105, 57, { align: 'center' });
+      doc.text(`Prepared for: ${formData.company}`, 105, 64, { align: 'center' });
+
+      // --- To Section ---
+      doc.setFontSize(11);
+      doc.text("To,", 20, 80);
+      doc.text(`${formData.name}`, 20, 86);
+      doc.text(`${formData.designation}`, 20, 92);
+      doc.text(`${formData.company}`, 20, 98);
+      doc.text(`${formData.contact}`, 20, 104);
 
       // --- Event Overview ---
-      const hasCeoDinner = selectedItems.some(item => item.isCeoDinner);
-      let tripType = "1 Day Stress Management & Mindfulness Retreat Program";
-      let hotel = "Not Applicable";
-      if (hasCeoDinner) {
-        tripType = "Stress Management & Mindfulness Retreat Program (Overnight Stay)";
-        hotel = "Hotel Accommodation Included (TBD)";
-      }
-
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
-      doc.setTextColor(22, 53, 77);
-      doc.text("Event Overview", 20, 115);
+      doc.text("Event Overview", 20, 118);
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);
-      doc.setTextColor(0, 0, 0);
-      doc.text(`Trip Type: ${tripType}`, 20, 123);
-      doc.text(`Preferred Date: TBD (To be discussed)`, 20, 129);
-      doc.text(`Event Timings: TBD (To be discussed)`, 20, 135);
-      let yPos = 135;
-      if (hotel !== 'Not Applicable') {
-        yPos += 6;
-        doc.text(`Accommodation: ${hotel}`, 20, yPos);
-      }
+      doc.text("Preferred Date: TBD (To be decided)", 20, 126);
+      doc.text("Event Timings: TBD (To be decided)", 20, 132);
+
+      let yPos = 146;
 
       // --- Itinerary ---
-      yPos += 14;
       doc.setFont("helvetica", "bold");
       doc.setFontSize(14);
-      doc.setTextColor(22, 53, 77);
       doc.text("Proposed Itinerary", 20, yPos);
-      yPos += 8;
+      yPos += 10;
+
+      const hasForest = selectedItems.some(item => item.name.includes("Forest Bathing"));
+      const hasCeoDinner = selectedItems.some(item => item.name.includes("CEO"));
+      const hasVipDinner = selectedItems.some(item => item.name.includes("VIP"));
 
       // Activity Descriptions Map
       const activityDescriptions = {
-        "Forest Bathing": "The day will begin with a guided forest bathing experience, allowing participants to reconnect with nature and begin the retreat with calm awareness and sensory mindfulness.",
-        "Mindfulness through Eating": "A sensory mindfulness practice that encourages gratitude and present-moment awareness while enjoying each meal.",
-        "Mindfulness through Art Therapy": "An expressive arts session where participants channel their emotions through colour, texture, and creativity.",
-        "Sound Therapy & Mindful Listening": "A deep sound healing experience using acoustic vibrations to harmonise energy and calm the mind.",
-        "Music Performance": "A soothing musical performance to elevate mood and foster relaxation within a creative environment.",
-        "Laughter Therapy": "A playful session that uses guided laughter and joyful expression to release tension and promote emotional wellbeing.",
-        "Yoga": "A guided yoga flow integrating breath and posture to cultivate strength, balance, and mental clarity.",
-        "Tai Chi": "A gentle movement meditation that fosters grounding, coordination, and balance.",
-        "Power of Mind": "A reflective workshop exploring mental resilience, visualization, and positive intention-setting.",
-        "Care Package": "Each participant receives a curated self-care box designed to encourage continued mindfulness beyond the retreat.",
-        "Company Branded Merchandise": "Branded takeaways fostering unity, gratitude, and pride in participation.",
-        "CEO / Director's Curated Dinner": "An exclusive dinner hosted by the leadership team, promoting reflection and dialogue in an intimate setting.",
-        "VIP Guest for Dinner": "A premium experience featuring a special guest or thought leader for inspiration and connection."
+        "Forest Bathing": "A guided nature immersion that awakens the senses and centres attention.",
+        "Mindfulness through Eating": "A guided sensory experience to cultivate a healthy, present relationship with food and reduce stress.",
+        "Mindfulness through Art Therapy": "An expressive arts session that invites reflection and creativity through colour, movement, and form.",
+        "Sound Therapy & Mindful Listening": "Immerse in live acoustic instruments and sound vibrations that harmonise internal rhythms.",
+        "Music Performance": "A sophisticated live music session to create a relaxing and elegant atmosphere.",
+        "Laughter Therapy": "An interactive session using guided laughter exercises to boost morale, reduce stress, and foster team bonding.",
+        "Yoga": "A restorative session focusing on flexibility, breathing, and mindfulness to rejuvenate the body and mind.",
+        "Tai Chi": "A gentle, flowing 'meditation in motion' to improve balance, reduce stress, and enhance mental clarity.",
+        "Power of Mind": "A workshop on mindset, visualization, and resilience to help teams overcome challenges and achieve goals.",
+        "Care Package": "Curated wellness and appreciation kits delivered to each employee to show gratitude and support well-being.",
+        "Company Branded Merchandise": "High-quality, desirable swag that builds brand pride and fosters a sense of unity and belonging.",
+        "CEO / Director's Curated Dinner": "An exclusive, high-level networking and strategy dinner hosted in a premium setting.",
+        "VIP Guest for Dinner": "An inspirational evening with an industry leader or special guest, combined with a premium dining experience."
       };
 
-      let itineraryText = "The retreat begins with a light breakfast and orientation session, followed by immersive mindfulness and experiential activities throughout the day.\n\n";
-      selectedItems.forEach(item => {
-        const desc = activityDescriptions[item.name] || "A thoughtfully curated experience to promote team bonding and mindfulness.";
-        itineraryText += `• ${item.name}: ${desc}\n\n`;
-      });
-      itineraryText += "A mindful lunch experience will be incorporated, introducing participants to conscious eating and gratitude.\n\n";
-      itineraryText += "The day concludes with reflective sharing and a gentle relaxation session, closing the retreat on a calm, positive note.";
+      // Itinerary Building
+      const itineraryParts = [];
 
+      // 1️⃣ Forest Bathing (if selected)
+      if (hasForest) {
+        itineraryParts.push(`• Forest Bathing: ${activityDescriptions["Forest Bathing"]}\n\n`);
+      }
+
+      // 2️⃣ Breakfast (always)
+      itineraryParts.push("• Breakfast (Included)\n\n");
+
+      // 3️⃣ Other activities (excluding forest bathing and dinners)
+      selectedItems.forEach(item => {
+        if (!item.name.includes("Forest Bathing") && !item.name.includes("Dinner")) {
+          const desc = activityDescriptions[item.name] || "A thoughtfully curated experience promoting mindfulness and engagement.";
+          itineraryParts.push(`• ${item.name}: ${desc}\n\n`);
+        }
+      });
+
+      // 4️⃣ Lunch
+      itineraryParts.push("• Lunch (Included)\n\n");
+
+      // 5️⃣ Dinner logic
+      if (hasCeoDinner) {
+        itineraryParts.push(`• CEO / Director's Curated Dinner: ${activityDescriptions["CEO / Director's Curated Dinner"]}\n\n`);
+      } else if (hasVipDinner) {
+        itineraryParts.push(`• VIP Guest for Dinner: ${activityDescriptions["VIP Guest for Dinner"]}\n\n`);
+      } else {
+        itineraryParts.push("• Dinner (Included)\n\n");
+      }
+
+      // --- Render itinerary
       doc.setFont("helvetica", "normal");
       doc.setFontSize(11);
-      const wrapped = doc.splitTextToSize(itineraryText, 170);
+      const wrapped = doc.splitTextToSize(itineraryParts.join(""), 170);
       doc.text(wrapped, 20, yPos);
-      yPos += wrapped.length * 6;
 
-      doc.save('EUNOIA-Proposal.pdf');
+      doc.save("EUNOIA-Proposal.pdf");
       showMessage("Thank you! Your proposal has been downloaded successfully.", "success");
       resetForm();
 
