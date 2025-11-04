@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
       doc.addImage(headerImgData, 'PNG', 0, 0, imgWidth, imgHeight);
 
       // --- Title Section ---
-      doc.setFont("helvetica", "normal");
+      doc.setFont("helvetica", "bold");
       doc.setFontSize(16);
       doc.setTextColor(0, 0, 0);
       doc.text("EUNOIA", 105, 50, { align: 'center' });
