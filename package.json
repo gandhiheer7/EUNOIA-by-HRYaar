@@ -1,0 +1,9 @@
+{
+  "name": "eunoia-proposal-sender",
+  "version": "1.0.0",
+  "main": "index.html",
+  "dependencies": {
+    "nodemailer": "^6.9.7",
+    "jspdf": "^2.5.1"
+  }
+}
