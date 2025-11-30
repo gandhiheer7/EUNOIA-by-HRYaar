@@ -123,16 +123,17 @@ export default async function handler(req, res) {
     
     // --- 2. SEND EMAIL 1 (To the User) ---
     await transporter.sendMail({
-      from: `"EUNOIA" <${process.env.VERIFIED_SENDER_EMAIL}>`,
+      from: `"HR Yaar" <${process.env.VERIFIED_SENDER_EMAIL}>`,
       to: formData.email, // The user's email
       subject: "Your Custom EUNOIA Proposal is Here!",
       html: `
         <p>Hi ${formData.name},</p>
-        <p>Thank you for your interest in our Mindfulness & Leadership programs. Please find your custom proposal attached.</p>
+        <p>Thank you for your interest in our stress management and wellness program - EUNOIA. Please find your custom proposal attached.</p>
         <p>Our team will reach out to you within 24 hours to discuss the next steps.</p>
         <br>
         <p>Best Regards,</p>
-        <p>The EUNOIA Team</p>
+        <p>HR Yaar Consulting Services</p>
+        <p><a href="https://hryaar.com">hryaar.com</a></p>
       `,
       attachments: [
         {
@@ -145,7 +146,7 @@ export default async function handler(req, res) {
 
     // --- 3. SEND EMAIL 2 (To You/Admin) ---
     await transporter.sendMail({
-      from: `"New Proposal Bot" <${process.env.VERIFIED_SENDER_EMAIL}>`,
+      from: `"New Proposal from ${formData.name}" <${process.env.VERIFIED_SENDER_EMAIL}>`,
       to: process.env.MY_EMAIL, // Your admin email
       subject: `New Proposal Request from: ${formData.company}`,
       html: `
