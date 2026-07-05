@@ -1,6 +1,6 @@
 # EUNOIA - Corporate Wellness Proposal Generator
 
-**Live demo:** [https://eunoia-by-hryaar.vercel.app]
+**Live demo:** https://eunoia-by-hryaar.vercel.app
 
 A serverless proposal-builder built for HR Yaar's corporate wellness programs. Clients select from a catalog of mindfulness and team-building activities, fill in their details, and receive a professionally formatted PDF proposal via email - automatically, with no manual back-and-forth.
 
@@ -39,7 +39,11 @@ vercel dev
 ## Screenshots
 
 **Generated PDF proposal:**
-![PDF Proposal](screenshots/proposal-pdf.png)
+
+<img src="screenshots/proposal-pdf.png" width="500">
+
+
 
 **Delivered email with attachment (captured while SendGrid credentials were active):**
-![Email Confirmation](screenshots/email-confirmation.png)
+
+<img src="screenshots/email-confirmation.png" width="500">
